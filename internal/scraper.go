@@ -19,7 +19,7 @@ func ScrapeDomainsFromFile(fname string, requestTimeout time.Duration, maxConcur
 	if err != nil {
 		return err
 	}
-	outFile, err := os.OpenFile(outputFile, os.O_RDWR|os.O_CREATE, 0644)
+	outFile, err := os.OpenFile(outputFile, os.O_WRONLY|os.O_CREATE, 0644)
 	if err != nil {
 		return err
 	}
@@ -70,5 +70,6 @@ func ScrapeDomainsFromFile(fname string, requestTimeout time.Duration, maxConcur
 		})
 	}
 	pool.StopAndWait()
+	writer.Flush()
 	return nil
 }
